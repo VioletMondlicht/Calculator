@@ -9,7 +9,7 @@ public class Programm
         Console.WriteLine("Heyho, willkommen bei meinem Taschenrechner");
         Console.WriteLine("Creator: Violet G.");
         Console.WriteLine("GitHub: https://github.com/VioletMondlicht");
-        Console.WriteLine("Version 1.0.0");
+        Console.WriteLine("Version 1.0.1");
     Menu:
         Console.WriteLine("Menü:");
         Console.WriteLine("1. Addition");
@@ -21,8 +21,8 @@ public class Programm
         Console.WriteLine("7. Exit");
 
         string input = Console.ReadLine();
-        int selection;
 
+        int selection;
         if (!int.TryParse(input, out selection))
         {
             Console.WriteLine("Bitte Zahlen von 1 - 7 auswählen!");
@@ -73,7 +73,7 @@ public class Programm
                     result = Multiply(num1, num2);
                     break;
                 case 4:
-                    if (num1 == 0 | num2 == 0)
+                    if (num2 == 0)
                     {
                         Console.WriteLine("Bitte nicht durch 0 dividieren!");
                         goto NumberAssignment1;
@@ -100,7 +100,7 @@ public class Programm
             }
             else
             {
-                Console.WriteLine("Dein Ergebnis ist: " + result);
+                Console.WriteLine($"Dein Ergebnis ist: {result}");
                 goto Menu;
             }
         }
