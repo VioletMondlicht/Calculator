@@ -4,27 +4,23 @@ namespace Calculator;
 
 public class Programm
 {
-    public static void Main(string[] args)
+    public static int ShowMenu()
     {
-        Console.WriteLine("Heyho, willkommen bei meinem Taschenrechner");
-        Console.WriteLine("Creator: Violet G.");
-        Console.WriteLine("GitHub: https://github.com/VioletMondlicht");
-        Console.WriteLine("Version 1.1.0");
+        Console.WriteLine("Menü:");
+        Console.WriteLine("1. Addition");
+        Console.WriteLine("2. Subtraktion");
+        Console.WriteLine("3. Multiplikation");
+        Console.WriteLine("4. Division");
+        Console.WriteLine("5. Potenzieren");
+        Console.WriteLine("6. n-te Wurzel ziehen");
+        Console.WriteLine("7. Exit");
 
+        int selection;
         while (true)
         {
-            Console.WriteLine("Menü:");
-            Console.WriteLine("1. Addition");
-            Console.WriteLine("2. Subtraktion");
-            Console.WriteLine("3. Multiplikation");
-            Console.WriteLine("4. Division");
-            Console.WriteLine("5. Potenzieren");
-            Console.WriteLine("6. n-te Wurzel ziehen");
-            Console.WriteLine("7. Exit");
-
             string input = Console.ReadLine();
 
-            int selection;
+
             if (!int.TryParse(input, out selection))
             {
                 Console.WriteLine("Bitte Zahlen von 1 - 7 auswählen!");
@@ -38,91 +34,95 @@ public class Programm
             if (selection == 7)
             {
                 Console.WriteLine("Auf Widersehen!");
-                return;
+                Environment.Exit(0);
+            }
+            return selection;
+        }
+    }
+
+    public static double GetNum1()
+    {
+        while (true)
+        {
+            double num;
+            Console.WriteLine("Gebe die erste Zahl ein:");
+            string numinput = Console.ReadLine();
+            if (!double.TryParse(numinput, out num))
+            {
+                Console.WriteLine("Bitte nur Zahlen verwenden!");
+                continue;
+            }
+            else return num;
+        }
+    }
+
+    public static double GetNum2()
+    {
+        while (true)
+        {
+            double num;
+            Console.WriteLine("Gebe die zweite Zahl ein:");
+            string numinput = Console.ReadLine();
+            if (!double.TryParse(numinput, out num))
+            {
+                Console.WriteLine("Bitte nur Zahlen verwenden!");
+                continue;
+            }
+            else return num;
+        }
+    }
+
+    public static double? Calculate(int selection, double x, double y)
+    {
+        switch (selection)
+        {
+            case 1:
+                return x + y;
+            case 2:
+                return x - y;
+            case 3:
+                return x * y;
+            case 4:
+                return x / y;
+            case 5:
+                return Math.Pow(x, y);
+            case 6:
+                return Math.Pow(y, (1 / x));
+        }
+        return null;
+    }
+
+    public static void Main(string[] args)
+    {
+        Console.WriteLine("Heyho, willkommen bei meinem Taschenrechner");
+        Console.WriteLine("Creator: Violet G.");
+        Console.WriteLine("GitHub: https://github.com/VioletMondlicht");
+        Console.WriteLine("Version 1.1.0");
+
+        while (true)
+        {
+            int selection = ShowMenu();
+
+            double num1 = GetNum1();
+            double num2 = GetNum2();
+
+            if (selection == 4 && num2 == 0)
+            {
+                Console.WriteLine("Division durch 0 nicht möglich!");
+                continue;
+            }
+
+            double? result = Calculate(selection, num1, num2);
+            if (result == null)
+            {
+                Console.WriteLine("Unbekannter Fehler.");
             }
             else
             {
-                double result = 0;
-
-                while (true)
-                {
-                    double num1;
-                    Console.WriteLine("Gebe die erste Zahl ein:");
-                    string numinput1 = Console.ReadLine();
-                    if (!double.TryParse(numinput1, out num1))
-                    {
-                        Console.WriteLine("Bitte nur Zahlen verwenden!");
-                        continue;
-                    }
-                    else
-                    {
-                        while (true)
-                        {
-                            double num2;
-                            Console.WriteLine("Gebe die zweite Zahl ein:");
-                            string numinput2 = Console.ReadLine();
-                            if (!double.TryParse(numinput2, out num2))
-                            {
-                                Console.WriteLine("Bitte nur Zahlen verwenden!");
-                                continue;
-                            }
-                            else
-                            {
-                                switch (selection)
-                                {
-                                    case 1:
-                                        result = Add(num1, num2);
-                                        break;
-                                    case 2:
-                                        result = Subtract(num1, num2);
-                                        break;
-                                    case 3:
-                                        result = Multiply(num1, num2);
-                                        break;
-                                    case 4:
-                                        if (num2 == 0)
-                                        {
-                                            Console.WriteLine("Bitte nicht durch 0 dividieren!");
-                                            continue;
-                                        }
-                                        else
-                                        {
-                                            result = Divide(num1, num2);
-                                            break;
-                                        }
-                                    case 5:
-                                        result = Pow(num1, num2);
-                                        break;
-                                    case 6:
-                                        result = Sqrt(num1, num2);
-                                        break;
-                                    default:
-                                        Console.WriteLine("Eingabe nicht erkannt. Bitte starten Sie neu.");
-                                        continue;
-                                }
-                                break;
-                            }
-                        }
-                        if (double.IsInfinity(result))
-                        {
-                            Console.WriteLine("Ergebnis zu lang.");
-                            break;
-                        }
-                        else
-                        {
-                            Console.WriteLine($"Dein Ergebnis ist: {result}");
-                            break;
-                        }
-                    }
-                    double Add(double x, double y) => x + y;
-                    double Subtract(double x, double y) => x - y;
-                    double Multiply(double x, double y) => x * y;
-                    double Divide(double x, double y) => x / y;
-                    double Pow(double x, double y) => Math.Pow(x, y);
-                    double Sqrt(double x, double y) => Math.Pow(y, (1 / x));
-
-                }
-                continue;
+                if (double.IsInfinity((double)result))
+                    Console.WriteLine("Ergebnis zu lang.");
+                else
+                    Console.WriteLine($"Dein Ergebnis ist: {result}");
             }
         }
     }
