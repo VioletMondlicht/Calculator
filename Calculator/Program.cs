@@ -47,8 +47,7 @@ public class Programm
         {
             int selection = ShowMenu();
             Calculator calc = new();
-            calc.GetNum1();
-            calc.GetNum2();
+            calc.GetNum();
 
             switch (selection)
             {

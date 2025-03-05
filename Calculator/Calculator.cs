@@ -8,7 +8,7 @@ public class Calculator
     private double X { get; set; }
     private double Y { get; set; }
 
-    public void GetNum1()
+    public void GetNum()
     {
         while (true)
         {
@@ -21,22 +21,15 @@ public class Calculator
                 continue;
             }
             X = num;
-            return;
-        }
-    }
-    public void GetNum2()
-    {
-        while (true)
-        {
             Console.WriteLine("Gebe die zweite Zahl ein:");
-            string numinput = Console.ReadLine();
-            double num;
-            if (!double.TryParse(numinput, out num))
+            string numinput2 = Console.ReadLine();
+            double num2;
+            if (!double.TryParse(numinput2, out num2))
             {
                 Console.WriteLine("Bitte nur Zahlen verwenden!");
                 continue;
             }
-            Y = num;
+            Y = num2;
             return;
         }
     }
